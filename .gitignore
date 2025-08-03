@@ -1,0 +1,12 @@
+gnore everything
+*
+
+# But not these folders/files
+!.gitignore
+!scripts/
+
+# Ignore all inside scripts except shell scripts if needed
+# (optional if you only want .sh files tracked)
+# scripts/*
+# !scripts/*.sh
+
