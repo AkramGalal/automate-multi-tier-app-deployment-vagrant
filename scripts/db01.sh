@@ -15,8 +15,28 @@ yum install git mariadb-server -y
 systemctl start mariadb
 systemctl enable mariadb
 
-# RUN mysql secure installation script.
-# mysql_secure_installation
+# Run mysql_secure_installation script automatically
+echo "Securing MariaDB..."
+expect <<EOF
+spawn mysql_secure_installation
+expect "Enter current password for root (enter for none):"
+send "\r"
+expect "Set root password? \[Y/n\]"
+send "y\r"
+expect "New password:"
+send "admin123\r"
+expect "Re-enter new password:"
+send "admin123\r"
+expect "Remove anonymous users? \[Y/n\]"
+send "y\r"
+expect "Disallow root login remotely? \[Y/n\]"
+send "y\r"
+expect "Remove test database and access to it? \[Y/n\]"
+send "y\r"
+expect "Reload privilege tables now? \[Y/n\]"
+send "y\r"
+expect eof
+EOF
 
 # Set DB name and users.
 mysql -u root -padmin123 <<SQL
